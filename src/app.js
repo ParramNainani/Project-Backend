@@ -31,6 +31,11 @@ app.get('/health', async (_req, res) => {
 // ── API Routes ──
 app.use('/api', routes);
 
+// ── Root Route ──
+app.get('/', (req, res) => {
+  res.status(200).json({ message: 'Welcome to the Zorvyn Finance Dashboard API!' });
+});
+
 // ── 404 Handler ──
 app.use((_req, _res, next) => {
   next(ApiError.notFound('Route not found'));
