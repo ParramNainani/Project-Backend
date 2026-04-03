@@ -1,0 +1,42 @@
+{
+  "name": "zorvyn-finance-dashboard",
+  "version": "1.0.0",
+  "description": "Finance Dashboard Backend — Express.js, PostgreSQL, Prisma, JWT Auth, RBAC",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "db:migrate": "npx prisma migrate dev",
+    "db:seed": "npx prisma db seed",
+    "db:studio": "npx prisma studio"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
+  "keywords": [
+    "finance",
+    "dashboard",
+    "express",
+    "prisma",
+    "postgresql"
+  ],
+  "author": "Zorvyn",
+  "license": "MIT",
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.6.0",
+    "@prisma/client": "^7.6.0",
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^16.6.1",
+    "express": "^5.2.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "morgan": "^1.10.1",
+    "pg": "^8.20.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14",
+    "prisma": "^7.6.0"
+  }
+}
