@@ -1,0 +1,134 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Zorvyn Finance Dashboard API",
+    "version": "1.0.0",
+    "description": "API documentation for the Finance Dashboard system."
+  },
+  "servers": [
+    {
+      "url": "/api",
+      "description": "Base API Path"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "summary": "Login to your account",
+        "tags": ["Auth"],
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": { "type": "string", "example": "admin@zorvyn.com" },
+                  "password": { "type": "string", "example": "admin123" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Successful login returns a JWT." }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "summary": "Register a new user",
+        "tags": ["Auth"],
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string", "example": "John Doe" },
+                  "email": { "type": "string", "example": "john@example.com" },
+                  "password": { "type": "string", "example": "password123" },
+                  "role": { "type": "string", "enum": ["VIEWER", "ANALYST", "ADMIN"], "example": "VIEWER" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "User created successfully." }
+        }
+      }
+    },
+    "/summary": {
+      "get": {
+        "summary": "Get financial summary data",
+        "tags": ["Dashboard"],
+        "responses": {
+          "200": { "description": "Returns calculated dashboard totals and trends." }
+        }
+      }
+    },
+    "/records": {
+      "get": {
+        "summary": "Get all financial records (Paginated)",
+        "tags": ["Records"],
+        "parameters": [
+          { "name": "page", "in": "query", "schema": { "type": "integer", "default": 1 } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer", "default": 10 } }
+        ],
+        "responses": {
+          "200": { "description": "A paginated list of financial records." }
+        }
+      },
+      "post": {
+        "summary": "Create a new financial record (Admin only)",
+        "tags": ["Records"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": { "type": "string", "example": "Server Costs" },
+                  "amount": { "type": "number", "example": 150.50 },
+                  "type": { "type": "string", "enum": ["INCOME", "EXPENSE"], "example": "EXPENSE" },
+                  "category": { "type": "string", "example": "Infrastructure" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Record created." }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "List all users (Admin only)",
+        "tags": ["Users"],
+        "responses": {
+          "200": { "description": "Returns a list of registered users." }
+        }
+      }
+    }
+  }
+}
